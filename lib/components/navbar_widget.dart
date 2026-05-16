@@ -35,7 +35,7 @@ class NavbarWidget extends StatelessWidget {
                   ),
                   child: Center(
                     child: SvgPicture.asset(
-                      'assets/svg/vector.svg',
+                      'assets/svg/home-filled.svg',
                       width: 22,
                       height: 22,
                       colorFilter: const ColorFilter.mode(
@@ -47,7 +47,7 @@ class NavbarWidget extends StatelessWidget {
                 ),
 
                 icon: SvgPicture.asset(
-                  'assets/svg/vector.svg',
+                  'assets/svg/home-outlined.svg',
                   width: 24,
                   height: 24,
                   colorFilter: const ColorFilter.mode(
@@ -55,22 +55,42 @@ class NavbarWidget extends StatelessWidget {
                     BlendMode.srcIn,
                   ),
                 ),
-
                 label: 'Home',
               ),
+              // Todo
               NavigationDestination(
                 selectedIcon: Container(
-                  width: 48,
-                  height: 48,
+                  width: 50,
+                  height: 50,
                   decoration: BoxDecoration(
-                    color: Colors.blue.withOpacity(0.2),
+                    color: Color.fromARGB(255, 226, 226, 231),
                     shape: BoxShape.circle,
                   ),
-                  child: const Icon(Icons.location_on, color: Colors.blue),
+                  child: Center(
+                    child: SvgPicture.asset(
+                      'assets/svg/location-filled.svg',
+                      width: 22,
+                      height: 22,
+                      colorFilter: const ColorFilter.mode(
+                        Color(0xFF4B5563),
+                        BlendMode.srcIn,
+                      ),
+                    ),
+                  ),
                 ),
-                icon: const Icon(Icons.location_on),
-                label: "Location",
+
+                icon: SvgPicture.asset(
+                  'assets/svg/location-outlined.svg',
+                  width: 24,
+                  height: 24,
+                  colorFilter: const ColorFilter.mode(
+                    Colors.grey,
+                    BlendMode.srcIn,
+                  ),
+                ),
+                label: 'Location',
               ),
+
               NavigationDestination(
                 selectedIcon: Container(
                   width: 48,
