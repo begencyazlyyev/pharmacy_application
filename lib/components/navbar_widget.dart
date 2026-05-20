@@ -14,7 +14,6 @@ class NavbarWidget extends StatelessWidget {
       builder: (context, int selectedPage, child) {
         return NavigationBarTheme(
           data: NavigationBarThemeData(
-            // 1. Hide the default, un-resizable pill indicator
             indicatorColor: Colors.transparent,
             backgroundColor: Colors.transparent,
           ),
@@ -57,7 +56,7 @@ class NavbarWidget extends StatelessWidget {
                 ),
                 label: 'Home',
               ),
-              // Todo
+
               NavigationDestination(
                 selectedIcon: Container(
                   width: 50,
@@ -90,32 +89,70 @@ class NavbarWidget extends StatelessWidget {
                 ),
                 label: 'Location',
               ),
+              NavigationDestination(
+                selectedIcon: Container(
+                  width: 50,
+                  height: 50,
+                  decoration: BoxDecoration(
+                    color: Color.fromARGB(255, 226, 226, 231),
+                    shape: BoxShape.circle,
+                  ),
+                  child: Center(
+                    child: SvgPicture.asset(
+                      'assets/svg/phone-filled.svg',
+                      width: 22,
+                      height: 22,
+                      colorFilter: const ColorFilter.mode(
+                        Color(0xFF4B5563),
+                        BlendMode.srcIn,
+                      ),
+                    ),
+                  ),
+                ),
+
+                icon: SvgPicture.asset(
+                  'assets/svg/phone-outlined.svg',
+                  width: 24,
+                  height: 24,
+                  colorFilter: const ColorFilter.mode(
+                    Colors.grey,
+                    BlendMode.srcIn,
+                  ),
+                ),
+                label: 'Location',
+              ),
 
               NavigationDestination(
                 selectedIcon: Container(
-                  width: 48,
-                  height: 48,
+                  width: 50,
+                  height: 50,
                   decoration: BoxDecoration(
-                    color: Colors.blue.withOpacity(0.2),
+                    color: Color.fromARGB(255, 226, 226, 231),
                     shape: BoxShape.circle,
                   ),
-                  child: const Icon(Icons.phone, color: Colors.blue),
-                ),
-                icon: const Icon(Icons.phone),
-                label: "Phone",
-              ),
-              NavigationDestination(
-                selectedIcon: Container(
-                  width: 48,
-                  height: 48,
-                  decoration: BoxDecoration(
-                    color: Colors.blue.withOpacity(0.2),
-                    shape: BoxShape.circle,
+                  child: Center(
+                    child: SvgPicture.asset(
+                      'assets/svg/person-filled.svg',
+                      width: 22,
+                      height: 22,
+                      colorFilter: const ColorFilter.mode(
+                        Color(0xFF4B5563),
+                        BlendMode.srcIn,
+                      ),
+                    ),
                   ),
-                  child: const Icon(Icons.phone, color: Colors.blue),
                 ),
-                icon: const Icon(Icons.person),
-                label: "Person",
+
+                icon: SvgPicture.asset(
+                  'assets/svg/person-outlined.svg',
+                  width: 24,
+                  height: 24,
+                  colorFilter: const ColorFilter.mode(
+                    Colors.grey,
+                    BlendMode.srcIn,
+                  ),
+                ),
+                label: 'Location',
               ),
             ],
           ),
