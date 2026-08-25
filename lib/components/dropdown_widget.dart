@@ -33,11 +33,11 @@ class _DropdownWidgetState extends State<DropdownWidget> {
                 children: [
                   SvgPicture.asset(
                     "assets/svg/location-filled.svg",
-                    width: 24,
-                    height: 24,
+                    width: 20,
+                    height: 20,
                   ),
                   const SizedBox(width: 8),
-                  Text(city, style: TextStyle(fontSize: 18)),
+                  Text(city, style: TextStyle(fontSize: 14)),
                 ],
               ),
             );
