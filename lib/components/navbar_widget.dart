@@ -18,6 +18,7 @@ class NavbarWidget extends StatelessWidget {
             backgroundColor: Colors.transparent,
           ),
           child: NavigationBar(
+            height: 62,
             selectedIndex: selectedPage,
             onDestinationSelected: (value) {
               selectedPageNotifier.value = value;
@@ -26,8 +27,8 @@ class NavbarWidget extends StatelessWidget {
             destinations: [
               NavigationDestination(
                 selectedIcon: Container(
-                  width: 50,
-                  height: 50,
+                  width: 46,
+                  height: 46,
                   decoration: BoxDecoration(
                     color: Color.fromARGB(255, 226, 226, 231),
                     shape: BoxShape.circle,

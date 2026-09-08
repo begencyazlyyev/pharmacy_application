@@ -1,6 +1,7 @@
 // ignore_for_file: deprecated_member_use
 
 import 'package:flutter/material.dart';
+import 'package:pharmacy_app/view/pages/pharmacy_page.dart';
 import 'package:pharmacy_app/view/widget_tree.dart';
 
 void main() {
@@ -16,10 +17,14 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: "Pharmacy App",
       theme: ThemeData(
+        appBarTheme: AppBarTheme(backgroundColor: Colors.transparent),
         scaffoldBackgroundColor: Colors.white,
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
       ),
-      home: WidgetTree(),
+      routes: {
+        '/': (context) => const WidgetTree(),
+        '/-pharmacy_page': (context) => const PharmacyPage(),
+      },
     );
   }
 }

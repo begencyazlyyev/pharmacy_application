@@ -3,8 +3,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gap/flutter_gap.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:pharmacy_app/data/pharmacy_data.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:pharmacy_app/components/textstyle_widget.dart';
-import 'package:pharmacy_app/data/contents.dart';
 
 class PhonePage extends StatefulWidget {
   const PhonePage({super.key});
@@ -22,8 +23,31 @@ class _PhonePageState extends State<PhonePage> {
     super.dispose();
   }
 
+  Future<void> _dialNumber(String number) async {
+    final uri = Uri(scheme: 'tel', path: number);
+    try {
+      final launched = await launchUrl(uri);
+      if (!launched && mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Could not open dialer for $number')),
+        );
+      }
+    } catch (e) {
+      if (mounted) {
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text('Error opening dialer: $e')));
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    final query = _searchController.text.trim().toLowerCase();
+    final filtered = pharmacyList
+        .where((p) => query.isEmpty || p.name.toLowerCase().contains(query))
+        .toList();
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -73,7 +97,7 @@ class _PhonePageState extends State<PhonePage> {
                       )
                     : null,
                 filled: true,
-                fillColor: Color(0xFFF3F4F6),
+                fillColor: const Color(0xFFF3F4F6),
                 contentPadding: const EdgeInsets.symmetric(vertical: 14),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(16),
@@ -91,68 +115,82 @@ class _PhonePageState extends State<PhonePage> {
             ),
           ),
         ),
-        Gap(10),
+        const Gap(10),
         Divider(color: Colors.grey.shade300, thickness: 1.4),
         Expanded(
-          child: ListView.separated(
-            separatorBuilder: (context, index) => Divider(
-              indent: 80,
-              color: Colors.grey.shade300,
-              thickness: 1.4,
-            ),
-            itemCount: pharmacies.length,
-            itemBuilder: (context, index) {
-              return ListTile(
-                onTap: () {},
-                contentPadding: EdgeInsets.symmetric(
-                  vertical: 0,
-                  horizontal: 8,
-                ),
-                leading: ClipOval(
-                  child: Container(
-                    width: 60,
-                    height: 60,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      border: Border.all(width: 1, color: Colors.grey),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(5), // match border width
-                      child: ClipOval(
-                        child: Image.asset(
-                          "assets/images/default.jpg",
-                          fit: BoxFit.cover,
+          child: filtered.isEmpty
+              ? const Center(child: Text('Netije tapylmady'))
+              : ListView.separated(
+                  separatorBuilder: (context, _) => Divider(
+                    indent: 80,
+                    color: Colors.grey.shade300,
+                    thickness: 1.4,
+                  ),
+                  itemCount: filtered.length,
+                  itemBuilder: (context, index) {
+                    final pharmacy = filtered[index];
+                    return ListTile(
+                      contentPadding: const EdgeInsets.symmetric(
+                        vertical: 0,
+                        horizontal: 8,
+                      ),
+                      leading: ClipOval(
+                        child: Container(
+                          width: 60,
+                          height: 60,
+                          decoration: const BoxDecoration(
+                            shape: BoxShape.circle,
+                            border: Border.fromBorderSide(
+                              BorderSide(width: 1, color: Colors.grey),
+                            ),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(5),
+                            child: ClipOval(
+                              child: Image.asset(
+                                pharmacy.image,
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          ),
                         ),
                       ),
-                    ),
-                  ),
+                      title: Text(
+                        pharmacy.name,
+                        style: const TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      subtitle: Text(
+                        pharmacy.address,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                      trailing: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          InkWell(
+                            onTap: () => _dialNumber(pharmacy.contact),
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: SvgPicture.asset(
+                                "assets/svg/dial-phone.svg",
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: SvgPicture.asset(
+                              "assets/svg/show-location.svg",
+                            ),
+                          ),
+                        ],
+                      ),
+                    );
+                  },
                 ),
-                title: Text(
-                  pharmacies[index],
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                ),
-                subtitle: Text(
-                  adresses[index],
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                ),
-                trailing: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: SvgPicture.asset("assets/svg/dial-phone.svg"),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: SvgPicture.asset("assets/svg/show-location.svg"),
-                    ),
-                  ],
-                ),
-              );
-            },
-          ),
         ),
       ],
     );

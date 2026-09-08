@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:pharmacy_app/components/banner_widget.dart';
 import 'package:pharmacy_app/components/dropdown_widget.dart';
 import 'package:pharmacy_app/components/horizintal_list_widget.dart';
+import 'package:pharmacy_app/data/pharmacy_data.dart';
 
 List<String> insideImage = [
   "assets/images/inside-one.jpg",
@@ -42,6 +43,7 @@ class _HomePageState extends State<HomePage> {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 15),
             child: Container(
+              height: 48,
               decoration: BoxDecoration(
                 color: Colors.grey.shade200,
                 borderRadius: BorderRadius.circular(12),
@@ -56,7 +58,7 @@ class _HomePageState extends State<HomePage> {
                       width: 16,
                       height: 16,
                     ),
-                  ), //Change here
+                  ),
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(12),
                     borderSide: BorderSide.none,
@@ -69,16 +71,16 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
           ),
-          // // Banner
+          // Banner
           buildBanner(
             imagePath: "assets/images/image-one.jpg",
             title: "We are doctors for your Bussiness",
             subtitle:
                 "Schedule your appointment with us and get the best treatment",
           ),
-          // Second midle items
+          // Dermanhanalar section
           Padding(
-            padding: EdgeInsetsGeometry.only(
+            padding: const EdgeInsets.only(
               left: 15.0,
               right: 15.0,
               bottom: 0.0,
@@ -87,7 +89,7 @@ class _HomePageState extends State<HomePage> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
+                const Text(
                   "Dermanhanalar",
                   style: TextStyle(
                     fontSize: 16,
@@ -96,13 +98,13 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
                 TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/-pharmacy_page');
+                  },
                   style: TextButton.styleFrom(
-                    padding: EdgeInsets.zero, // Removes internal padding
-                    minimumSize:
-                        Size.zero, // Allows it to shrink smaller than default
-                    tapTargetSize: MaterialTapTargetSize
-                        .shrinkWrap, // Shrinks the hit test area to content
+                    padding: EdgeInsets.zero,
+                    minimumSize: Size.zero,
+                    tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                   ),
                   child: Text(
                     "Hemmesi",
@@ -116,19 +118,18 @@ class _HomePageState extends State<HomePage> {
               ],
             ),
           ),
-          // Dermanhanalar horizontal list
           HorizontalList(
-            title: "Dertdeş",
-            address: "123 Oak Street, CA 98765",
+            images: insideImage,
+            titles: pharmacies,
+            addresses: adresses,
             points: 5.0,
             reviews: "(58 Reviews)",
-            images: insideImage,
             kilometer: "25 km/40min",
           ),
 
-          // Weterinariya horizontal list
+          // Weterinariýa horizontal list
           Padding(
-            padding: EdgeInsetsGeometry.only(
+            padding: const EdgeInsets.only(
               left: 15.0,
               right: 15.0,
               bottom: 0.0,
@@ -137,7 +138,7 @@ class _HomePageState extends State<HomePage> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
+                const Text(
                   "Weterinariýa",
                   style: TextStyle(
                     fontSize: 16,
@@ -148,11 +149,9 @@ class _HomePageState extends State<HomePage> {
                 TextButton(
                   onPressed: () {},
                   style: TextButton.styleFrom(
-                    padding: EdgeInsets.zero, // Removes internal padding
-                    minimumSize:
-                        Size.zero, // Allows it to shrink smaller than default
-                    tapTargetSize: MaterialTapTargetSize
-                        .shrinkWrap, // Shrinks the hit test area to content
+                    padding: EdgeInsets.zero,
+                    minimumSize: Size.zero,
+                    tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                   ),
                   child: Text(
                     "Hemmesi",
@@ -167,11 +166,11 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
           HorizontalList(
-            title: "Tebip",
-            address: "123 Oak Street, CA 98765",
-            points: 6.2,
-            reviews: "(58 Reviews)",
             images: insideImage,
+            titles: pharmacies,
+            addresses: adresses,
+            points: 5.0,
+            reviews: "(58 Reviews)",
             kilometer: "25 km/40min",
           ),
         ],

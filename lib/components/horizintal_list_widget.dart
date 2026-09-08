@@ -5,18 +5,19 @@ import 'package:pharmacy_app/components/textstyle_widget.dart';
 
 class HorizontalList extends StatelessWidget {
   final List<String> images;
-  final String title;
-  final String address;
+  final List<String> titles;
+  final List<String> addresses;
   final double points;
   final String reviews;
   final String kilometer;
+
   const HorizontalList({
     super.key,
-    required this.title,
-    required this.address,
+    required this.images,
+    required this.titles,
+    required this.addresses,
     required this.points,
     required this.reviews,
-    required this.images,
     required this.kilometer,
   });
 
@@ -27,7 +28,7 @@ class HorizontalList extends StatelessWidget {
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 0),
-        itemCount: 10,
+        itemCount: titles.length,
         itemBuilder: (context, index) {
           final image = images[index % images.length];
           return Padding(
@@ -64,7 +65,7 @@ class HorizontalList extends StatelessWidget {
                   SizedBox(height: 8),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 10),
-                    child: Text(title, style: KTextStyle.titleText),
+                    child: Text(titles[index], style: KTextStyle.titleText),
                   ),
                   Gap(5),
                   Padding(
@@ -73,7 +74,14 @@ class HorizontalList extends StatelessWidget {
                       children: [
                         SvgPicture.asset("assets/svg/location-small.svg"),
                         Gap(4),
-                        Text(address, style: KTextStyle.subtitleText),
+                        Expanded(
+                          child: Text(
+                            addresses[index],
+                            style: KTextStyle.subtitleText,
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 1,
+                          ),
+                        ),
                       ],
                     ),
                   ),
