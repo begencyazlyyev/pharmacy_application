@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pharmacy_app/components/vertical_list_widget.dart';
+import 'package:pharmacy_app/data/pharmacy_data.dart';
+import 'package:pharmacy_app/view/pages/details_page.dart';
 
 const List<String> insideImage = [
   "assets/images/inside-one.jpg",
@@ -44,12 +46,22 @@ class PharmacyPage extends StatelessWidget {
         body: TabBarView(
           children: [
             VerticalList(
-              title: "Dertdeş",
-              address: "123 Oak Street, CA 98765",
+              titles: pharmacies,
+              addresses: adresses,
               points: 5.0,
               reviews: "(58 Reviews)",
               images: insideImage,
               kilometer: "25 km/40min",
+              onTap: (index) {
+                final pharmacy = pharmacyList[index];
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) =>
+                        PharmacyDetailsPage(pharmacy: pharmacy),
+                  ),
+                );
+              },
             ),
             const Center(child: Text("Maglumat tab")),
           ],

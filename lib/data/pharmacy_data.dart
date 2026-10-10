@@ -133,11 +133,50 @@ List<String> contacts = [
   "+99312420708",
   "+99312935080",
   "+99312439090",
-  "+99312413512",
+  "+99312414175",
   "+99312227222",
   "+99312288080",
   "+99312979595",
 ];
+
+List<String> location = [
+  "Aşgabat",
+  "Aşgabat",
+  "Aşgabat",
+  "Aşgabat",
+  "Aşgabat",
+  "Aşgabat",
+  "Aşgabat",
+  "Aşgabat",
+  "Aşgabat",
+  "Aşgabat",
+  "Aşgabat",
+  "Aşgabat",
+  "Aşgabat",
+  "Aşgabat",
+  "Aşgabat",
+  "Aşgabat",
+  "Aşgabat",
+  "Aşgabat",
+  "Aşgabat",
+  "Aşgabat",
+  "Aşgabat",
+  "Aşgabat",
+  "Aşgabat",
+  "Aşgabat",
+  "Aşgabat",
+  "Aşgabat",
+  "Aşgabat",
+  "Aşgabat",
+];
+
+List<String> additional = [
+  "Kompaniýa köp ýyllyk tejribesiniň dowamynda özüni derman serişdeleriniň paýlanyş ulgamynda ygtybarly hyzmatdaş hökmünde",
+];
+List<String> about = [
+  "16 ýyldan gowrak wagt bäri Ýowşan ykdysady assosiasiýasynyň işgärleri bize bil baglaýanlaryň durmuşyny gowulandyrmak",
+];
+List<String> workingHours = ["Duşenbe-Ýekşenbe, 08:00 -22:00"];
 
 List<Pharmacy> buildPharmacyList() {
   final length = [

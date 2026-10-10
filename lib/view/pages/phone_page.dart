@@ -18,7 +18,18 @@ class _PhonePageState extends State<PhonePage> {
   final TextEditingController _searchController = TextEditingController();
 
   @override
+  void initState() {
+    super.initState();
+    _searchController.addListener(_onSearchChanged);
+  }
+
+  void _onSearchChanged() {
+    setState(() {});
+  }
+
+  @override
   void dispose() {
+    _searchController.removeListener(_onSearchChanged);
     _searchController.dispose();
     super.dispose();
   }
@@ -75,7 +86,6 @@ class _PhonePageState extends State<PhonePage> {
             ),
             child: TextField(
               controller: _searchController,
-              onChanged: (value) => setState(() {}),
               decoration: InputDecoration(
                 hintText: 'Gözleg...',
                 hintStyle: TextStyle(color: Colors.grey.shade500),
@@ -92,7 +102,6 @@ class _PhonePageState extends State<PhonePage> {
                         icon: Icon(Icons.close, color: Colors.grey.shade500),
                         onPressed: () {
                           _searchController.clear();
-                          setState(() {});
                         },
                       )
                     : null,
@@ -134,6 +143,7 @@ class _PhonePageState extends State<PhonePage> {
                         vertical: 0,
                         horizontal: 8,
                       ),
+
                       leading: ClipOval(
                         child: Container(
                           width: 60,

@@ -4,11 +4,20 @@ import 'package:pharmacy_app/components/banner_widget.dart';
 import 'package:pharmacy_app/components/dropdown_widget.dart';
 import 'package:pharmacy_app/components/horizintal_list_widget.dart';
 import 'package:pharmacy_app/data/pharmacy_data.dart';
+import 'package:pharmacy_app/data/veterinary_data.dart' hide pharmacyList;
+import 'package:pharmacy_app/view/pages/details_page.dart';
 
-List<String> insideImage = [
+List<String> pharmacyImage = [
   "assets/images/inside-one.jpg",
   "assets/images/inside-two.jpg",
   "assets/images/inside-three.jpg",
+];
+
+List<String> veterinarImage = [
+  "assets/images/aybolit.jpg",
+  "assets/images/vet-second.jpg",
+  "assets/images/vet-third.jpg",
+  "assets/images/vet-fourth.jpg",
 ];
 
 class HomePage extends StatefulWidget {
@@ -19,6 +28,115 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  final TextEditingController _searchController = TextEditingController();
+  final ScrollController _pharmacyScrollController = ScrollController();
+  final ScrollController _veterinaryScrollController = ScrollController();
+
+  int? _highlightedIndex;
+  int? _veterinaryHighlightedIndex;
+  bool _noResult = false;
+
+  @override
+  void dispose() {
+    _searchController.dispose();
+    _pharmacyScrollController.dispose();
+    _veterinaryScrollController.dispose();
+    super.dispose();
+  }
+
+  void _scrollToIndex(ScrollController controller, int index) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!controller.hasClients) return;
+      final targetOffset = (index * HorizontalList.itemExtent).clamp(
+        0.0,
+        controller.position.maxScrollExtent,
+      );
+      controller.animateTo(
+        targetOffset,
+        duration: const Duration(milliseconds: 400),
+        curve: Curves.easeInOut,
+      );
+    });
+  }
+
+  void _onSearchChanged(String query) {
+    final trimmed = query.trim().toLowerCase();
+
+    if (trimmed.isEmpty) {
+      setState(() {
+        _highlightedIndex = null;
+        _veterinaryHighlightedIndex = null;
+        _noResult = false;
+      });
+      return;
+    }
+
+    final pharmacyIndex = pharmacies.indexWhere(
+      (title) => title.toLowerCase().contains(trimmed),
+    );
+    final veterinaryIndex = veterinaryName.indexWhere(
+      (title) => title.toLowerCase().contains(trimmed),
+    );
+
+    setState(() {
+      _highlightedIndex = pharmacyIndex == -1 ? null : pharmacyIndex;
+      _veterinaryHighlightedIndex = veterinaryIndex == -1
+          ? null
+          : veterinaryIndex;
+      _noResult = pharmacyIndex == -1 && veterinaryIndex == -1;
+    });
+
+    if (pharmacyIndex != -1) {
+      _scrollToIndex(_pharmacyScrollController, pharmacyIndex);
+    }
+    if (veterinaryIndex != -1) {
+      _scrollToIndex(_veterinaryScrollController, veterinaryIndex);
+    }
+  }
+
+  int _indexForCity(List<String> addresses, List<String> places, String city) {
+    for (int i = 0; i < addresses.length; i++) {
+      final inAddress = addresses[i].toLowerCase().contains(city);
+      final inPlace =
+          i < places.length && places[i].toLowerCase().contains(city);
+      if (inAddress || inPlace) return i;
+    }
+    return -1;
+  }
+
+  void _onCityChanged(String city) {
+    final c = city.trim().toLowerCase();
+
+    final pharmacyIndex = _indexForCity(adresses, location, c);
+    final veterinaryIndex = _indexForCity(veterinaryAdress, vetLocation, c);
+
+    setState(() {
+      _searchController.clear();
+      _highlightedIndex = pharmacyIndex == -1 ? null : pharmacyIndex;
+      _veterinaryHighlightedIndex = veterinaryIndex == -1
+          ? null
+          : veterinaryIndex;
+      _noResult = pharmacyIndex == -1 && veterinaryIndex == -1;
+    });
+
+    if (pharmacyIndex != -1) {
+      _scrollToIndex(_pharmacyScrollController, pharmacyIndex);
+    }
+    if (veterinaryIndex != -1) {
+      _scrollToIndex(_veterinaryScrollController, veterinaryIndex);
+    }
+  }
+
+  // X button pressed: remove the city filter and bring everything back
+  void _onCityCleared() {
+    setState(() {
+      _searchController.clear();
+      _highlightedIndex = null;
+      _veterinaryHighlightedIndex = null;
+      _noResult = false;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -38,7 +156,10 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
           // Dropdown button
-          DropdownWidget(),
+          DropdownWidget(
+            onCityChanged: _onCityChanged,
+            onCleared: _onCityCleared,
+          ),
           // Searchbar
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 15),
@@ -49,6 +170,8 @@ class _HomePageState extends State<HomePage> {
                 borderRadius: BorderRadius.circular(12),
               ),
               child: TextField(
+                controller: _searchController,
+                onChanged: _onSearchChanged,
                 decoration: InputDecoration(
                   labelText: "Gözleg...",
                   prefixIcon: Padding(
@@ -59,6 +182,15 @@ class _HomePageState extends State<HomePage> {
                       height: 16,
                     ),
                   ),
+                  suffixIcon: _searchController.text.isNotEmpty
+                      ? IconButton(
+                          icon: const Icon(Icons.close, size: 18),
+                          onPressed: () {
+                            _searchController.clear();
+                            _onSearchChanged('');
+                          },
+                        )
+                      : null,
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(12),
                     borderSide: BorderSide.none,
@@ -71,12 +203,20 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
           ),
+          if (_noResult)
+            Padding(
+              padding: const EdgeInsets.only(left: 15.0, top: 6.0),
+              child: Text(
+                "Netije tapylmady",
+                style: TextStyle(fontSize: 13, color: Colors.red.shade400),
+              ),
+            ),
           // Banner
           buildBanner(
             imagePath: "assets/images/image-one.jpg",
-            title: "We are doctors for your Bussiness",
+            title: "Biz lukmanlar gije-gündiz hyzmatyňyzda",
             subtitle:
-                "Schedule your appointment with us and get the best treatment",
+                "Saglygy goramak we bu ugurda alnyp barylýan işleri durmuşa geçirmek biziň üçin möhümdir",
           ),
           // Dermanhanalar section
           Padding(
@@ -119,12 +259,24 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
           HorizontalList(
-            images: insideImage,
+            images: pharmacyImage,
             titles: pharmacies,
             addresses: adresses,
             points: 5.0,
-            reviews: "(58 Reviews)",
+            reviews: "(58 Halandy)",
             kilometer: "25 km/40min",
+            clinic: location, // Todo here
+            scrollController: _pharmacyScrollController,
+            highlightedIndex: _highlightedIndex,
+            onItemTap: (index) {
+              final pharmacy = pharmacyList[index];
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => PharmacyDetailsPage(pharmacy: pharmacy),
+                ),
+              );
+            },
           ),
 
           // Weterinariýa horizontal list
@@ -166,12 +318,15 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
           HorizontalList(
-            images: insideImage,
-            titles: pharmacies,
-            addresses: adresses,
+            images: veterinarImage,
+            titles: veterinaryName,
+            addresses: veterinaryAdress,
             points: 5.0,
             reviews: "(58 Reviews)",
             kilometer: "25 km/40min",
+            clinic: vetLocation,
+            scrollController: _veterinaryScrollController,
+            highlightedIndex: _veterinaryHighlightedIndex,
           ),
         ],
       ),
