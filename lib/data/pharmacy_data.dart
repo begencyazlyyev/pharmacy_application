@@ -42,6 +42,12 @@ List<String> pharmacies = [
   "Rysgally el",
   "Behiştli Dünýä",
   "Şirin nabat",
+  "Baýry",
+  "Dostlukly zähmet",
+  "Boý Bodron",
+  "Dostluk Dünýäsi",
+  "Aşgabat",
+  "Ýandak",
 ];
 
 // Addresses
@@ -74,6 +80,12 @@ List<String> adresses = [
   "B.S.Türkmenbaşy şaýoly(Lenin), 71/1 ýaşaýyş jaýyynyň awtoduralgasy",
   "Aşgabat, Türkmenistanyň Gahrymany Atamyrat Nyýazow şaýoly köçesi, 55/1 jaýy («Umyt» binasy)",
   "Aşgabat ş. Gurtly ýaşaýyş jaý toplumy 56-njy jaý",
+  "г. Ашгабат, Гуртли",
+  "15-nji tapgyr (Rysgally) söwda dükany",
+  "г.Ашгабат, ТЦ Ашгабат Ялкымы",
+  "г.Ашгабат, ул. Махтумкули 181 А (30 мкр, напротив зоомагазина)",
+  "г.Ашгабат, ул. Огузхана, 66 (напротив оптовки)",
+  "г.Ашгабат, ул. Худайбердыева, 134 (дом быта Гунча)",
 ];
 
 List<String> images = [
@@ -105,6 +117,12 @@ List<String> images = [
   "assets/images/rysgally-el.jpg",
   "assets/images/behishti.jpg",
   "assets/images/shirin-nabat.jpg",
+  "assets/images/bayry.jpg",
+  "assets/images/dostlukly.jpg",
+  "assets/images/boy-bodron.jpg",
+  "assets/images/default.jpg",
+  "assets/images/ag-dermanhana.jpg",
+  "assets/images/default.jpg",
 ];
 
 // Contacts
@@ -137,9 +155,21 @@ List<String> contacts = [
   "+99312227222",
   "+99312288080",
   "+99312979595",
+  "+99312979339",
+  "415501",
+  "+99362377878",
+  "+99312340131",
+  "+99312262828",
+  "220303",
 ];
 
 List<String> location = [
+  "Aşgabat",
+  "Aşgabat",
+  "Aşgabat",
+  "Aşgabat",
+  "Aşgabat",
+  "Aşgabat",
   "Aşgabat",
   "Aşgabat",
   "Aşgabat",

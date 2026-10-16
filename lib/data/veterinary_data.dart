@@ -38,7 +38,7 @@ List<String> contacts = [
   "+99362566336",
 ];
 
-List<String> vetLocation = ["Aşgabat", "Aşgabat", "Aşgabat", "Mary"];
+List<String> vetLocation = ["Aşgabat", "Aşgabat", "Aşgabat", "Aşgabat"];
 
 List<String> additional = [
   "Kompaniýa köp ýyllyk tejribesiniň dowamynda özüni derman serişdeleriniň paýlanyş ulgamynda ygtybarly hyzmatdaş hökmünde",
