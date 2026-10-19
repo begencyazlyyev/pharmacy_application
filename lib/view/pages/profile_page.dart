@@ -63,7 +63,7 @@ class ProfilePage extends StatelessWidget {
             const SizedBox(height: 16),
             const Center(
               child: Text(
-                "Merdan Annaýew",
+                "Ady Familiýasy",
                 style: TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
@@ -74,7 +74,7 @@ class ProfilePage extends StatelessWidget {
             const SizedBox(height: 4),
             Center(
               child: Text(
-                "+993 64 796803",
+                "+993 ** ******",
                 style: TextStyle(fontSize: 15, color: Colors.grey.shade600),
               ),
             ),

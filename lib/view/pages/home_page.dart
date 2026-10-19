@@ -4,8 +4,9 @@ import 'package:pharmacy_app/components/banner_widget.dart';
 import 'package:pharmacy_app/components/dropdown_widget.dart';
 import 'package:pharmacy_app/components/horizintal_list_widget.dart';
 import 'package:pharmacy_app/data/pharmacy_data.dart';
-import 'package:pharmacy_app/data/veterinary_data.dart' hide pharmacyList;
+import 'package:pharmacy_app/data/veterinary_data.dart';
 import 'package:pharmacy_app/view/pages/details_page.dart';
+import 'package:pharmacy_app/view/pages/vet_details.dart';
 
 List<String> pharmacyImage = [
   "assets/images/inside-one.jpg",
@@ -299,7 +300,14 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
                 TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    // arguments: 1 = open the Weterinariýa tab
+                    Navigator.pushNamed(
+                      context,
+                      '/-pharmacy_page',
+                      arguments: 1,
+                    );
+                  },
                   style: TextButton.styleFrom(
                     padding: EdgeInsets.zero,
                     minimumSize: Size.zero,
@@ -327,6 +335,15 @@ class _HomePageState extends State<HomePage> {
             clinic: vetLocation,
             scrollController: _veterinaryScrollController,
             highlightedIndex: _veterinaryHighlightedIndex,
+            onItemTap: (index) {
+              final vet = veterinaryList[index];
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => VeterinaryDetailsPage(veterinary: vet),
+                ),
+              );
+            },
           ),
         ],
       ),

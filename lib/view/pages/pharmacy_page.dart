@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pharmacy_app/components/vertical_list_widget.dart';
 import 'package:pharmacy_app/data/pharmacy_data.dart';
 import 'package:pharmacy_app/view/pages/details_page.dart';
+import 'package:pharmacy_app/view/pages/veterinary_page.dart';
 
 const List<String> insideImage = [
   "assets/images/inside-one.jpg",
@@ -14,8 +15,12 @@ class PharmacyPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final args = ModalRoute.of(context)?.settings.arguments;
+    final initialIndex = (args is int && args >= 0 && args < 2) ? args : 0;
+
     return DefaultTabController(
       length: 2,
+      initialIndex: initialIndex,
       child: Scaffold(
         appBar: AppBar(
           centerTitle: true,
@@ -63,7 +68,7 @@ class PharmacyPage extends StatelessWidget {
                 );
               },
             ),
-            const Center(child: Text("Maglumat tab")),
+            const VeterinaryPage(),
           ],
         ),
       ),

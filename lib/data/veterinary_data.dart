@@ -28,10 +28,15 @@ List<String> veterinaryAdress = [
   "г. Ашгабат, этр. Багтыйарлык",
 ];
 
-List<String> images = ["assets/images/default.jpg"];
+List<String> veterinaryImages = [
+  "assets/images/default.jpg",
+  "assets/images/default.jpg",
+  "assets/images/default.jpg",
+  "assets/images/default.jpg",
+];
 
 // Contacts
-List<String> contacts = [
+List<String> veterinaryContacts = [
   "+99364070800",
   "+99371594990",
   "+99363071703",
@@ -40,30 +45,30 @@ List<String> contacts = [
 
 List<String> vetLocation = ["Aşgabat", "Aşgabat", "Aşgabat", "Aşgabat"];
 
-List<String> additional = [
+List<String> vetAdditional = [
   "Kompaniýa köp ýyllyk tejribesiniň dowamynda özüni derman serişdeleriniň paýlanyş ulgamynda ygtybarly hyzmatdaş hökmünde",
 ];
-List<String> about = [
+List<String> vetAbout = [
   "16 ýyldan gowrak wagt bäri Ýowşan ykdysady assosiasiýasynyň işgärleri bize bil baglaýanlaryň durmuşyny gowulandyrmak",
 ];
-List<String> workingHours = ["Duşenbe-Ýekşenbe, 08:00 -22:00"];
+List<String> vetWorkingHours = ["Duşenbe-Ýekşenbe, 08:00 -22:00"];
 
-List<Veterinary> buildPharmacyList() {
+List<Veterinary> buildVeterinaryList() {
   final length = [
     veterinaryName.length,
     veterinaryAdress.length,
-    images.length,
-    contacts.length,
+    veterinaryImages.length,
+    veterinaryContacts.length,
   ].reduce((a, b) => a < b ? a : b);
 
   return List.generate(length, (i) {
     return Veterinary(
       name: veterinaryName[i],
       address: veterinaryAdress[i],
-      image: images[i],
-      contact: contacts[i],
+      image: veterinaryImages[i],
+      contact: veterinaryContacts[i],
     );
   });
 }
 
-final List<Veterinary> pharmacyList = buildPharmacyList();
+final List<Veterinary> veterinaryList = buildVeterinaryList();

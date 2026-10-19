@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_gap/flutter_gap.dart';
 
 Widget buildBanner({
   required String imagePath,
@@ -25,22 +24,31 @@ Widget buildBanner({
 
           // Content Layer
           Padding(
-            padding: const EdgeInsets.only(left: 18.0, right: 150.0, top: 25.0),
+            padding: const EdgeInsets.only(
+              left: 18.0,
+              right: 150.0,
+              top: 0.0,
+              bottom: 0.0,
+            ),
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start, // Left-align text
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center, // Left-align text
               children: [
-                const Gap(22),
-                Text(
-                  title,
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
+                Flexible(
+                  child: Text(
+                    title,
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
-                Text(
-                  subtitle,
-                  style: const TextStyle(color: Colors.white, fontSize: 14),
+                Flexible(
+                  child: Text(
+                    subtitle,
+                    style: const TextStyle(color: Colors.white, fontSize: 14),
+                  ),
                 ),
               ],
             ),
